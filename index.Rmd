@@ -1,0 +1,29 @@
+---
+title: "Developing Data Product - Week2 Project"
+author: "lz"
+date: "December 13, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+ knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Apple Store in Manhattan, New York
+Created on December 13, 2018
+
+```{r}
+library(leaflet)
+
+apple <- data.frame(
+    name = c('Apple World Trade Center', 'Apple West 14th Street', 
+             'Apple SoHo', 'Apple Grand Central', 'Apple Fifth Avenue',
+             'Apple Upper West Side', 'Apple Upper East Side'),
+    lat = c(40.711915, 40.74127, 40.725058, 40.752658, 40.763538, 40.775005, 40.773357),
+    lng = c(-74.011503, -74.005389, -73.999029, -73.976857, -73.9728, -73.982507, -73.964537))
+
+apple %>% leaflet() %>% addTiles() %>% 
+    addMarkers(lat = apple$lat, lng = apple$lng, popup = apple$name, clusterOptions = markerClusterOptions())
+
+```
+
