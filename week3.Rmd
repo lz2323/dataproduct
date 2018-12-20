@@ -1,0 +1,35 @@
+---
+title: "Developing Data Product - Week3 Assignment"
+author: "lz"
+date: "December 19, 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 
+### Bitcoin Price vs. Stock Price of AMD and Nvidia 
+
+*Bitcoin price is divided by 100.
+```{r, message=FALSE}
+library(plotly)
+
+bc <- read.csv('f:/BTC-USD.csv')[c('Date','Adj.Close')]
+amd <- read.csv('f:/AMD.csv')[c('Date','Adj.Close')]
+nvidia <- read.csv('f:/NVDA.csv')[c('Date','Adj.Close')]
+
+bc$name <- 'Bitcoin price/100'
+amd$name <- 'AMD'
+nvidia$name <- 'Nvidia'
+
+bc$Adj.Close <- bc$Adj.Close/100
+
+df1 <- rbind(bc, amd, nvidia)
+
+df1$Date <- as.Date(df1$Date)
+names(df1)[2] <- 'Price'
+
+plot_ly(df1, x = ~Date, y = ~Price, color = ~name, type = 'scatter', mode = 'lines')
+```
